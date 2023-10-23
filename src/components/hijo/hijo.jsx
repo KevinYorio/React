@@ -1,5 +1,5 @@
-export const hijo = () => {
+export const Hijo = ({message}) => {
 return (
-    <div>hijo</div>
+    <div> Mensaje recibido de padre: {message} </div>
 )
 }

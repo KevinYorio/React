@@ -1,5 +1,10 @@
-export const padre = () => {
+import { Hijo } from "../hijo/hijo"
+
+export const Padre = () => {
 return (
-    <div>padre</div>
+    <>
+    <h3>componente padre</h3>
+    <Hijo message= "Hola Hijo" />
+    </>
 )
 }
