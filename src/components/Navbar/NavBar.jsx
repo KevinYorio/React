@@ -1,11 +1,12 @@
 import React from 'react';
 import CartWidget from '../CartWidget/CartWidget';
+import styles from './nav.module.css';
 
 const NavBar = () => {
 return (
-    <nav>
-    <div>Mi tienda</div>
-    <ul>
+    <nav className={styles.navcontainer}>
+    <div className={styles.titulo}> Derportivix </div>
+    <ul className={styles.categorias}>
         <li><a href="#">Categoría 1</a></li>
         <li><a href="#">Categoría 2</a></li>
         <li><a href="#">Categoría 3</a></li>

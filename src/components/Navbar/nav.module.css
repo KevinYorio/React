@@ -1,0 +1,18 @@
+.navcontainer {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #000000;
+    color: #018d2b;
+    padding: 10px;
+}
+
+.categorias {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.titulo {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3rem;
+}

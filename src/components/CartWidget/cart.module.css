@@ -1,0 +1,10 @@
+.cartcontainer {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2rem;
+}
