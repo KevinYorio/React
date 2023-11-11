@@ -1,37 +1,27 @@
 import { useEffect, useState } from "react";
 import { CharacterList } from "../CharacterList/CharacterList";
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button";
+import { useFetch } from "../../hooks/useFetch";
 
 export const CharacterListContainer = () => {
-    const [characters, setCharacters] = useState([])
-    const [page, setpage] = useState(1)
-    const getCharacters = async () =>{ 
-    const resp = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
-    const data = await resp.json();
-    setCharacters(data.results);
-    console.log(data.results);
-}
+    const [page, setPage] = useState(1)
+
+    const { data, isLoading } = useFetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
 
 const handleNexPage = () => {
     setPage(page + 1);
-}
+};
 
 const handlePrevPage = () => {
     setPage(page + 1);
-}
-
-
-useEffect(() => {
-    getCharacters()
-}, [])
+};
 
 return (
     <>
-    
-    <CharacterList characters={characters} />
-    <Button text="atras" functionClick={handlePrevPage}/>
-    <Button text="siguiente" functionClick={handleNexPage} />
-
+    { isLoading ? <h2>Cargando ...</h2> : <CharacterList characters={data.results} />}
+    <button text="atras" onClick={handlePrevPage}/>
+    <strong> Pagina {page} </strong>
+    <Button text="siguiente" onClick={handleNexPage} />
     </>
-)
-}
+);
+};

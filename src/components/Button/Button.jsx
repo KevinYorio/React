@@ -1,9 +1,8 @@
-import styles from "./button.module.css";
+import styles from "./Button.module.css";
 
-export const Button = ({ text = "boton", variant = "btn-primary", variantCss }) => {
-  const variantCssStyle = `${styles[variant]} ${variantCss ? styles[variantCss] : ''}`;
-
+export const Button = ({ text = "Boton", variant = "btn-primary", functionClick, color, type, bClass }) => {
+  const textColor = styles[color]; 
   return (
-    <button className={variantCssStyle}>{text}</button>
-  );
-};
+    <button type={type} className={`btn ${variant} m-2 ${styles[color]} ${bClass}`} onClick={functionClick} > {text} </button>
+  )
+}

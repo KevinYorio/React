@@ -13,12 +13,6 @@ export const Promises = () => {
         }
     });
 
-//    task
-//        .then ((resp) => setResponse(resp)) //si la promesa se cumple
-//        .catch((error) => setResponse(error)) //en caso que no se cumple
-
-//forma moderna de obtener info de las promesas
-
 const resolvePromise = async () => {
     try{
     

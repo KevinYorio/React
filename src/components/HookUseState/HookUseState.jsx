@@ -1,32 +1,33 @@
-import { useState } from "react"
-
+import { useState } from "react";
+import { Button } from "../Button/Button";
 
 export const HookUseState = () => {
-    const [count, setCount] = useState (0);
+  const [count, setCount] = useState(0);
 
-const handleSum = () => {
+  const handleSum = () => {
     setCount(count + 1);
-}
+  };
 
-const handleRes = () => {
-    if (count == 0){
-        return setCount(0)
+  const handleRes = () => {
+    if (count === 0) {
+      setCount(0);
+    } else {
+      setCount(count - 1);
     }
-    setCount(count - 1);
-}
+  };
 
-const handleReset = () => {
-        return setCount(0)
-}
+  const handleReset = () => {
+    setCount(0);
+  };
 
-console.log("cambio de estado");
+  console.log("cambio de estado");
 
-return (
+  return (
     <>
-    <div>Count: {count}</div>
-    <button onClick={handleSum}>Sumar</button>
-    <button onClick={handleRes}>Restar</button>
-    <button onClick={handleReset}>Resetear</button>
+      <div>Count: {count}</div>
+      <Button functionClick={handleSum}>Sumar</Button>
+      <Button functionClick={handleRes}>Restar</Button>
+      <Button functionClick={handleReset}>Resetear</Button>
     </>
-)
-}
+  );
+};

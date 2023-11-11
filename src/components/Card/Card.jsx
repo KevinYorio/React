@@ -1,5 +1,5 @@
 import { Count } from "../Count/Count"
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button";
 
 
 export const Card = ({name, description, stock}) => {
