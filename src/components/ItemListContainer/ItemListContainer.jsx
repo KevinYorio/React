@@ -1,13 +1,40 @@
-import React from 'react';
-import styles from "./Item.module.css";
+import { useEffect, useState } from "react";
+import { getProducts } from "../../asyncMock";
+import { ItemList } from "../ItemList/ItemList";
+import { useParams } from "react-router-dom";
 
-const ItemListContainer = ({ greeting }) => {
-return (
-    <div className={styles.Itemcontainer}>
-    <h2>{greeting}</h2>
-    {"Hola Cliente"}
-    </div>
-);
-}
+export const ItemListContainer = ({ greeting }) => {
+  const { category } = useParams();
 
-export default ItemListContainer;
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+
+    setIsLoading(true); 
+    getProducts()
+      .then((resp) => {
+        if(category) {
+        const productsFilter = resp.filter(product => product.category === category);
+        setProducts(productsFilter);
+        setIsLoading(false);
+        
+        } else {
+          setProducts(resp);
+        setIsLoading(false);
+          
+        }
+ 
+      })
+      .catch((error) => console.log(error));
+  }, [category]);
+
+
+  return (
+    <>
+      <div> {greeting} </div>
+      { isLoading ? <h2>Cargando productos ..</h2> : <ItemList products={products} /> }
+    </>
+  );
+};

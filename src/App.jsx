@@ -1,27 +1,21 @@
-import { Count, CustomHook, HookUseState } from "./components"; 
-import { Padre } from "./components";
-import {NavBar} from "./components";
-import {ItemListContainer} from "./components";
-import { Promises, Maps, CharacterListContainer, CharacterDetailContainer, TaskListContainer } from "./components"
+import {NavBar, CartWidget, Count, CustomHook, Promises, Maps, CharacterListContainer, CharacterDetailContainer, ItemListContainer, ItemDetailContainer} from "./components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export const App = () => {
   return (
     <>
-        <NavBar /> 
-        <ItemListContainer greeting="¡Bienvenido a nuestra tienda!" />
-        <h2>Componente app</h2>    
-        <Padre />
-        <hr />
+    <BrowserRouter >
+      <NavBar />
+      <Routes>
+          <Route path="/character" element={<CharacterListContainer />} />
+          <Route path="/category/calzados" element={<ItemListContainer />} />
+          <Route path="/character/:id" element={<CharacterDetailContainer />} />
+        <Route path="/category/:category" element={<ItemListContainer />} />
+        <Route path="/item/:id" element={<ItemDetailContainer />} />
+        </Routes>
+    </BrowserRouter>
         <Promises />
         <Maps /> 
-        <h1>App rick and morty</h1>
-        <CharacterListContainer />
-        <CharacterDetailContainer />
-        <h1>Clase de Custom Hook</h1>
-        <Count />
-        <CustomHook />
-        <h1>ToDoApp</h1>
-        <TaskListContainer />
     </>
   );
 };

@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
-import { CharacterList } from "../CharacterList/CharacterList";
+import { useCount, useFetch } from "../../hooks";
 import { Button } from "../Button/Button";
-import { useFetch } from "../../hooks/useFetch";
+import { CharacterList } from "../CharacterList/CharacterList";
 
 export const CharacterListContainer = () => {
-    const [page, setPage] = useState(1)
+  const { count, increment, decrement } = useCount(1);
+  const { data, isLoading } = useFetch(`https://rickandmortyapi.com/api/character/?page=${count}`);
 
-    const { data, isLoading } = useFetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
-
-const handleNexPage = () => {
-    setPage(page + 1);
-};
-
-const handlePrevPage = () => {
-    setPage(page + 1);
-};
-
-return (
+  return (
     <>
-    { isLoading ? <h2>Cargando ...</h2> : <CharacterList characters={data.results} />}
-    <button text="atras" onClick={handlePrevPage}/>
-    <strong> Pagina {page} </strong>
-    <Button text="siguiente" onClick={handleNexPage} />
+      {isLoading ? <h2>Cargando personajes...</h2> : <CharacterList characters={data.results} />}
+      {count > 1 && <Button text="Atrás" functionClick={decrement} />}
+      <strong> Página {count} </strong>
+      <Button text="Siguiente" functionClick={increment} />
     </>
-);
+  );
 };

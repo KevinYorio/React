@@ -1,30 +1,37 @@
-import { useEffect, useState } from "react"
-import { getProducts } from "../../productMock"
+import { useEffect, useState } from "react";
+import { getProducts } from "../../productMock";
 import { Card } from '../Card/Card';
 
 export const Maps = () => {
+const [products, setProducts] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
 
-    const [products, setProducts] = useState([])
-    const [isloading, setisloading] = useState(true)
+ useEffect(() => {
+    getProducts()
+    .then((resp) => {
+        console.log(resp);
+        setProducts(resp);
+        setIsLoading(false);
+    })
+    .catch((error) => console.log(error));
+}, []);
 
-    useEffect( () => {
-            getProducts()
-                .then( resp => {{
-                    console.log(resp)
-                    setProducts(resp);
-                    setisloading(!isloading)
-                }} )
-                .catch( error => console.log(error))
-    }, [])
-
-    return (
+ return (
     <div>
-        <h1>Mostrar productos con un map</h1>
-        {
-            isloading ? <h3>Cargando productos...</h3> : 
-            products.map( product => <Card key={product.id} name={product.name} description={product.description} stock={product.stock} />
-        )
-        }
+    <h1>Productos</h1>
+    {isLoading ? (
+        <h3>Cargando productos...</h3>
+    ) : (
+        products.map((product) => (
+        <Card
+            key={product.id}
+            name={product.name}
+            description={product.description}
+            stock={product.stock}
+            image={product.image}
+        />
+        ))
+    )}
     </div>
-    )
-}
+);
+};

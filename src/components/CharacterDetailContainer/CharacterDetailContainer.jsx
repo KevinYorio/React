@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
+import { useFetch } from "../../hooks";
+import { CharacterDetail } from "../CharacterDetail/CharacterDetail";
 
 
 export const CharacterDetailContainer = () => {
 
-    const [character, setCharacter] = useState(null)
-    
-    const getCharacter = async (id) =>{ 
-        const resp = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-        const data = await resp.json();
-        setCharacter(data);
-        console.log(data);
-        };
-
-        useEffect(() => {
-        getCharacter(30)
-        }, []);
-        
-
-    return (
+  const { id } = useParams()
+  
+  const {data, isLoading } = useFetch(`https://rickandmortyapi.com/api/character/${id}`)
+  
+  return (
     <div className="container d-flex justify-content-center mt-5">
-
+            { isLoading ? <h2>Cargando detalles...</h2> : <CharacterDetail {...data} /> }
     </div>
-    )
-} 
+  )
+}

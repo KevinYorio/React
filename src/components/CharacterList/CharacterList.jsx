@@ -2,9 +2,9 @@ import { Character } from "../Character/Character"
 
 
 export const CharacterList = ({characters}) => {
-    return (
+  return (
     <div className="container d-flex flex-sm-wrap">
-            {characters.map( character => <Character key={character.id} {...character} />)}
+        { characters.map( character => <Character key={character.id} {...character} /> )}
     </div>
-    )
+  )
 }

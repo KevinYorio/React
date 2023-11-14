@@ -26,12 +26,4 @@ const resolvePromise = async () => {
 }
 
 resolvePromise();
-
-return (
-    <>
-    <h1>Promises</h1>
-
-    <h4>Respuesta de nuestra promesa: {response}</h4>
-    </>
-);
 };
