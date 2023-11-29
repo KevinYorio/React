@@ -1,22 +1,20 @@
 import { useState } from "react";
+import { Button } from "../Button/Button"
 
 export const ItemCount = ({ stock, initial = 1, onAdd }) => {
   const [count, setCount] = useState(initial);
-  
+
   const increment = () => {
     if (count < stock) {
-      return setCount(count + 1);
+      setCount(count + 1);
     }
-    setCount(count);
   };
 
   const decrement = () => {
-    if (count === 0) {
-      return setCount(0);
+    if (count > 0) {
+      setCount(count - 1);
     }
-    setCount(count - 1);
   };
-
 
   return (
     <div className="d-flex flex-column col-2 justify-content-center align-content-center border border-3 border-primary rounded-3 p-4">
@@ -29,7 +27,9 @@ export const ItemCount = ({ stock, initial = 1, onAdd }) => {
           -
         </button>
       </div>
-      <button className="btn btn-outline-primary mt-2" onClick={() => onAdd(count)}>Agregar al carrito</button>
+      <Button className="btn btn-outline-primary mt-2" onClick={() => onAdd(count)}>
+        Agregar al carrito
+      </Button>
     </div>
   );
 };

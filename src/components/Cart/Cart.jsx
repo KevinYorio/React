@@ -12,24 +12,17 @@ export const Cart = () => {
   const { addOrderDB, discountStock } = useContext(FirebaseContext);
 
   const handleCheckout = () => {
-    // Aquí puedes agregar la lógica de checkout, por ejemplo, agregar la orden a Firebase y descontar el stock.
-    // Puedes usar las funciones de FirebaseContext para esto.
-    // Asegúrate de adaptar la lógica según tus necesidades específicas.
-
-    // Ejemplo:
     cart.forEach((product) => {
-      discountStock(product, product.quantity); // Descuenta el stock de los productos comprados
+      discountStock(product, product.quantity); 
     });
 
     const order = {
       products: cart,
       total: total,
-      // Otros campos necesarios para tu orden
     };
 
-    addOrderDB(order); // Agrega la orden a Firebase
+    addOrderDB(order);
 
-    // Puedes agregar más lógica aquí, como redireccionar a una página de confirmación, limpiar el carrito, etc.
   };
 
   return (

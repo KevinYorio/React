@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
-import { Count } from '../Count/Count';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { ItemCount } from '../ItemCount/ItemCount';
 
-export const Card = ({ name, description, stock, initial = 1, onAdd , image }) => {
+export const Card = ({ name, description, stock, initial = 1, image }) => {
   const [count, setCount] = useState(initial);
-  const increment = () => {
-    if (count < stock) {
-      return setCount(count + 1);
-    }
-    setCount(count);
+
+  const handleAddToCart = (count) => {
+    console.log(`Agregar al carrito: ${count} productos`);
+    // Aquí puedes llamar a la función onAdd y pasarle la cantidad seleccionada
   };
 
-  const decrement = () => {
-    if (count === 0) {
-      return setCount(0);
-    }
-    setCount(count - 1);
-  };
   return (
     <div className="card">
       <div className="card-body">
@@ -27,10 +18,11 @@ export const Card = ({ name, description, stock, initial = 1, onAdd , image }) =
         <hr />
         <div className="row">
           <div className="col-8">
-            <Count max={stock} />
+            {/* Suponiendo que Count es simplemente para mostrar la cantidad seleccionada */}
+            <p>Cantidad seleccionada: {count}</p>
           </div>
           <div className="col-4">
-          <button className="btn btn-outline-primary mt-2" onClick={() => onAdd(count)}>Agregar al carrito</button>
+            <ItemCount stock={stock} initial={initial} onAdd={handleAddToCart} />
           </div>
         </div>
       </div>

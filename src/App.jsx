@@ -2,13 +2,13 @@ import { NavBar, Promises, CharacterListContainer, CharacterDetailContainer, Ite
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Calzados, Cart } from "./components";
 import { CartContextProvider } from "../src/components/context/CartContext";
-import { FirebaseContextProvider } from "../src/components/context/FirebaseContext"; // Asegúrate de importar FirebaseContextProvider
+import { FirebaseContextProvider } from "../src/components/context/FirebaseContext"; 
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <FirebaseContextProvider> {/* Envuelve la aplicación con FirebaseContextProvider */}
-        <CartContextProvider> {/* Envuelve la aplicación con CartContextProvider */}
+      <FirebaseContextProvider> 
+        <CartContextProvider> 
           <>
             <NavBar />
             <Routes>

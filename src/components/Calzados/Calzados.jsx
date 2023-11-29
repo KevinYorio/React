@@ -1,5 +1,5 @@
 import React from "react";
-import { Maps } from "../Maps/Maps"; // Asegúrate de que la importación sea correcta
+import { Maps } from "../Maps/Maps";
 
 
 const Calzados = () => {
