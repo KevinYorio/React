@@ -1,0 +1,9 @@
+.Home{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.Home img {
+    max-width: 200px;  /* Esto limitará el tamaño máximo de las imágenes al ancho del contenedor */
+    height: auto;     /* Esto asegura que la proporción de la imagen se mantenga */
+    margin-bottom: 10px; /* Añadí un margen inferior para espaciar las imágenes */
+  }
