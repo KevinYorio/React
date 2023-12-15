@@ -1,40 +1,54 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../../asyncMock";
-import { ItemList } from "../ItemList/ItemList";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import { Item } from '../Item/Item';
+import { useParams } from 'react-router-dom';
+import { db } from '../../config/firebaseConfig';
+import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 
-export const ItemListContainer = ({ greeting }) => {
-  const { category } = useParams();
-
+export const ItemListContainer = (props) => {
+  const category = useParams().category;
+  const { cart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
-
-    setIsLoading(true); 
-    getProducts()
+    const myProducts = collection(db, "products");
+  
+    const queryCategory = category
+      ? query(myProducts, where("category", "==", category), orderBy("category"))
+      : query(myProducts, orderBy("category"));
+  
+    getDocs(queryCategory)
       .then((resp) => {
-        if(category) {
-        const productsFilter = resp.filter(product => product.category === category);
-        setProducts(productsFilter);
-        setIsLoading(false);
-        
-        } else {
-          setProducts(resp);
-        setIsLoading(false);
-          
-        }
- 
+        const productList = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  
+        setProducts(productList);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error());
   }, [category]);
-
+  
 
   return (
-    <>
-      <div> {greeting} </div>
-      { isLoading ? <h2>Cargando productos ..</h2> : <ItemList products={products} /> }
-    </>
+    <div>
+      <h1 className='itemList color-changing-text'> {props.greetings}</h1>
+
+      <h2> Nuestros productos</h2>
+      <div className='container row'>
+        {products.map((product) => (
+          <div className='col-md-3' key={product.id}>
+            <Item
+              name={product.name}
+              brand={product.brand}
+              img={product.img}
+              stock={product.stock}
+              price={product.price}
+              id={product.id}
+              category={product.category}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
+
+export default ItemListContainer;

@@ -9,7 +9,7 @@ export const CartContextProvider = ({ children }) => {
 
   const addProductCart = (product, quantity) => {
     const index = cart.findIndex((item) => item.id === product.id);
-    if (index == -1) {
+    if (index === -1) {
       const newProduct = {
         ...product,
         quantity,
@@ -26,34 +26,32 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const removeProduct = (id) => {
-        const productsFilter = cart.filter( product => product.id !== id );
-        setCart(productsFilter);
-  }
+    const productsFilter = cart.filter((product) => product.id !== id);
+    setCart(productsFilter);
+  };
 
-  const handleTotal = () => { 
-        const totalItems = cart.reduce( (acum, item) => acum + item.subTotal, 0);
-        setTotal(totalItems);
-   }
-  
-   const handleTotalProducts = () => { 
-        const items = cart.reduce( (acum, item) => acum + item.quantity, 0);
-        setTotalProducts(items);
-   }
+  const totalPrice = () => {
+    return cart.reduce((acc, item) => acc + item.subTotal, 0);
+  };
 
-   useEffect(() => {
-    handleTotal() 
-    handleTotalProducts()
+  const handleTotalProducts = () => {
+    const items = cart.reduce((acum, item) => acum + item.quantity, 0);
+    setTotalProducts(items);
+  };
 
-    }, [cart])
+  useEffect(() => {
+    handleTotalProducts();
+    setTotal(totalPrice());
+  }, [cart]);
 
-
-  const objetValue = {
+  const contextValue = {
     cart,
     total,
     totalProducts,
     addProductCart,
-    removeProduct
+    removeProduct,
+    totalPrice,
   };
 
-  return <CartContext.Provider value={objetValue}> {children} </CartContext.Provider>;
+  return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
 };

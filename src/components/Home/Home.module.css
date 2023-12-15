@@ -1,9 +1,106 @@
-.Home{
+.Home {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.Home img {
-    max-width: 200px; 
-    height: auto;     
-    margin-bottom: 10px; 
+    padding: 20px;
   }
+  
+
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  header h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  header p {
+    font-size: 1.2em;
+    color: #555;
+  }
+  
+
+  .featured-products,
+  .special-offers {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
+  
+  .product,
+  .offer {
+    text-align: center;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+
+  .Home img{
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .product h3,
+  .offer h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  .product p,
+  .offer p {
+    font-size: 1em;
+    color: #777;
+  }
+  
+
+  .categories-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+  
+  .categories-list li {
+    margin: 0;
+  }
+  
+  .categories-list a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+  }
+  
+  .categories-list a:hover {
+    color: #007bff;
+  }
+  
+
+  .testimonials {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .testimonial {
+    text-align: center;
+    max-width: 400px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  
+  .testimonial p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .testimonial:last-child {
+    margin-bottom: 0;
+  }
+  

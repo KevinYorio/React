@@ -1,64 +1,42 @@
-import React, { useContext } from "react";
-import { FirebaseContext } from "../context/FirebaseContext";
-import { CartContext } from "../context/CartContext";
-import { Form } from "../Form/Form";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { Button } from "../Button/Button"
-
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
 
 export const Cart = () => {
-  const { cart, total, removeProduct } = useContext(CartContext);
-  const { addOrderDB, discountStock } = useContext(FirebaseContext);
+  const { cart, emptyCart, removeProduct, totalPrice } = useContext(CartContext);
 
-  const handleCheckout = () => {
-    cart.forEach((product) => {
-      discountStock(product, product.quantity); 
-    });
-
-    const order = {
-      products: cart,
-      total: total,
-    };
-
-    addOrderDB(order);
-
+  const handleEmptyCart = () => {
+    emptyCart();
   };
 
+  const handleRemoveProduct = (productId) => {
+    removeProduct(productId);
+  };
+  
   return (
-    <Box marginTop={4}>
-      <Typography fontSize={25}>Carrito</Typography>
-      <Box display="flex" flexDirection="column">
-        {cart.map((item) => (
-          <Box
-            key={item.id}
-            margin={1}
-            border={1}
-            borderColor={"gray"}
-            borderRadius={2}
-            padding={3}
-            width={380}
-            boxShadow={3}
-          >
-            <Typography>Nombre: {item.name} </Typography>
-            <Typography>Precio Unitario: {item.price} </Typography>
-            <Typography>Cantidad: {item.quantity} </Typography>
-            <Typography>Subtotal: {item.subTotal} </Typography>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => removeProduct(item.id)}
-            >
-              Eliminar
-            </Button>
-          </Box>
-        ))}
-      </Box>
-      <Typography>Total de la compra ${total}</Typography>
-      <Button variant="contained" color="primary" onClick={handleCheckout}>
-        Checkout
-      </Button>
-      <Form />
-    </Box>
+    <div className='container px-3 py-2'>
+      <h2> Tu carrito</h2>
+      {cart.length === 0 ? (
+        <p>Tu carrito esta vacio</p>
+      ) : (
+        <div className='container card'>
+          <ul>
+            {cart.map((product) => (
+              <li key={product.id}>
+                <h3>{product.brand}</h3>
+                <p>{product.name}</p>
+                <p>Price: ${product.price}</p>
+                <p> Units: {product.quantity}</p>
+                <p> subtotal: ${product.price * product.quantity}</p>
+                <button className="btn btn-danger m-2" onClick={() => handleRemoveProduct(product.id)}> Borrar producto</button>
+              </li>
+            ))}
+          </ul>
+          <button className='btn btn-danger m-2' onClick={handleEmptyCart}> Carrito vacio</button>
+          <p>Total: $ {totalPrice()}</p>
+        </div>
+      )}
+      <Link to="/checkout" className='btn btn-success m-2'> Finalizar compra</Link>
+    </div>
   );
 };

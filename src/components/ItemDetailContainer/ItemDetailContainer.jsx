@@ -1,23 +1,41 @@
-import { useEffect } from "react";
-import { useState } from "react"
-import { getProduct } from "../../asyncMock";
-import { ItemDetail } from "../ItemDetail/ItemDetail";
-import { useParams } from "react-router-dom";
-
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
+import { db } from '../../config/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
+import { useContext, useEffect, useState } from 'react';
+import {ItemDetail} from '../ItemDetail/ItemDetail';
 
 export const ItemDetailContainer = () => {
-    const [product, setProduct] = useState(null);
+  const [item, setItem] = useState(null);
+  const { id } = useParams();
+  const { cart, setCart } = useContext(CartContext);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
-    const { id } = useParams();
+  useEffect(() => {
+    const fetchItem = async () => {
+      const docRef = doc(db, 'products', id);
+      const docSnap = await getDoc(docRef);
 
-    useEffect( () => { 
-        getProduct(id)
-            .then( resp => setProduct(resp))
-            .catch(err => console.log(err));
-     }, [product])
+      if (docSnap.exists()) {
+        setItem({ ...docSnap.data(), id: docSnap.id });
+      } else {
+        console.error('Item not found');
+      }
+    };
+
+    fetchItem();
+  }, [id]);
+
+  if (!item) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-        { product && <ItemDetail {...product} /> }
+      <ItemDetail item={item} selectedQuantity={selectedQuantity} setSelectedQuantity={setSelectedQuantity} setCart={setCart} />
     </div>
-  )
-}
+  );
+};
+
+export default ItemDetailContainer;
